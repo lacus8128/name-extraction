@@ -16,6 +16,7 @@ class Calc:
         self.db = self.mclient['name_extraction']
         self.collection = self.db[collection_name]
 
+
     def close(self):
         self.mclient.close()
 
@@ -67,7 +68,10 @@ class Calc:
                 else:
                     tail_validity = 1.0 + math.log2(tail_cnt)
             elif len(input_str) == 1:
-                tail_validity = 1.0 + math.log2(mongo_result_tail["head_cnt"])
+                if mongo_result_tail["head_cnt"] == 0:
+                    tail_validity = 0.1
+                else:
+                    tail_validity = 1.0 + math.log2(mongo_result_tail["head_cnt"])
             return tail_validity
         else:
             return 0.1    # 乗算で使用する値なので、ゼロにはしない

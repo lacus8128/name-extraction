@@ -14,6 +14,7 @@ def main():
     orig_file_name = './family_name.csv'
     with open(orig_file_name, mode='rt', encoding='utf-8') as f:
         reader = csv.reader(f)
+        next(reader)    # ヘッダー読み飛ばし
         original_data_list = list(reader)
     
     # 新しい csv データを開く

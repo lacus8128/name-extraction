@@ -16,6 +16,7 @@ def main():
     file_name = './family_name.csv'
     with open(file_name, 'rt', encoding='utf-8') as f:
         reader = csv.reader(f)
+        next(reader)    # ヘッダー読み飛ばし
         original_data_list = list(reader)
         
         for elem in original_data_list:
@@ -25,7 +26,8 @@ def main():
                 # 知識データに「人名」「地名」等の類型を登録
                 knowledge_data.append({
                     "name" : elem[1],
-                    "type_cand" : elem[3].split(':')
+                    "class" : elem[3].split(':'),
+                    "default_class": elem[4]
                 })
                 
                 # ch: character
